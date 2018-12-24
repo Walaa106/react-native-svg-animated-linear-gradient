@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {View, StyleSheet, Animated} from 'react-native';
-import Svg from 'react-native-svg';
+
+import Svg, {
+    G,
+    Rect,
+    Defs,
+    LinearGradient,
+    Stop,
+    ClipPath, } from 'react-native-svg';
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const {interpolate} = require('d3-interpolate');
 
@@ -89,32 +96,30 @@ export default class SvgAnimatedLinearGradient extends Component {
         })
     }
     render() {
-
         return (
             <AnimatedSvg height={this.props.height} width={this.props.width}>
-                <Svg.Defs>
-                    <Svg.LinearGradient id="grad" x1={this.props.x1} y1={this.props.y1} x2={this.props.x2} y2={this.props.y2}>
-                        <Svg.Stop
+                <Defs>
+                <LinearGradient id="grad" x1={this.props.x1} y1={this.props.y1} x2={this.props.x2} y2={this.props.y2}>
+                        <Stop
                             offset={this.state.offsets[0]}
                             stopColor={this.props.primaryColor}
                             stopOpacity="1"/>
-                        <Svg.Stop
+                        <Stop
                             offset={this.state.offsets[1]}
                             stopColor={this.props.secondaryColor}
                             stopOpacity="1"/>
-                        <Svg.Stop
+                        <Stop
                             offset={this.state.offsets[2]}
                             stopColor={this.props.primaryColor}
                             stopOpacity="1"/>
-                    </Svg.LinearGradient>
-                    <Svg.ClipPath id="clip">
-                        <Svg.G>
+                    </LinearGradient>
+                    <ClipPath id="clip">
+                        <G>
                             {this.props.children}
-                        </Svg.G>
-                    </Svg.ClipPath>
-                </Svg.Defs>
-
-                <Svg.Rect
+                        </G>
+                    </ClipPath>
+                </Defs>
+                <Rect
                     x="0"
                     y="0"
                     height={this.props.height}
